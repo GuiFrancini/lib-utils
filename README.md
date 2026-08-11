@@ -1,75 +1,170 @@
-# React + TypeScript + Vite
+# README - lib-ui
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descrição
 
-Currently, two official plugins are available:
+Biblioteca de componentes React compartilhados.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Componentes disponíveis:
 
-## React Compiler
+* Button
+* Input
+* Modal
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## Tecnologias
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+* React
+* TypeScript
+* Vite
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Instalação Local
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 1. Clonar o repositório
 
+```bash
+git clone https://github.com/guifrancini/lib-ui.git
+cd lib-ui
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 2. Instalar dependências
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
 ```
+
+### 3. Gerar build
+
+```bash
+npm run build
+```
+
+Será criada a pasta:
+
+```text
+dist/
+```
+
+com os componentes compilados.
+
+---
+
+## Gerando pacote local (.tgz)
+
+```bash
+npm pack
+```
+
+Exemplo:
+
+```text
+guifrancini-lib-ui-1.0.0.tgz
+```
+
+---
+
+## Consumindo localmente
+
+Em outro projeto React:
+
+```bash
+npm install ../lib-ui/guifrancini-lib-ui-1.0.0.tgz
+```
+
+---
+
+## Exemplo de Uso
+
+```tsx
+import { Button, Input, Modal } from "@guifrancini/lib-ui";
+
+function App() {
+  return (
+    <>
+      <Button>Salvar</Button>
+
+      <Input placeholder="Digite seu nome" />
+
+      <Modal open={true}>
+        Conteúdo do Modal
+      </Modal>
+    </>
+  );
+}
+
+export default App;
+```
+
+---
+
+## Publicação no GitHub Packages
+
+### Configurar .npmrc
+
+```text
+@guifrancini:registry=https://npm.pkg.github.com
+//npm.pkg.github.com/:_authToken=SEU_TOKEN
+```
+
+### Publicar
+
+```bash
+npm version patch
+npm publish
+```
+
+---
+
+## Instalação via GitHub Packages
+
+Após publicar:
+
+```bash
+npm install @guifrancini/lib-ui
+```
+
+---
+
+## Estrutura do Projeto
+
+```text
+src/
+├── components/
+│   ├── button.tsx
+│   ├── input.tsx
+│   └── modal.tsx
+└── index.ts
+```
+
+---
+
+## Fluxo de Desenvolvimento
+
+1. Criar ou alterar componentes.
+2. Exportar os componentes no `index.ts`.
+3. Executar:
+
+```bash
+npm run build
+```
+
+4. Testar localmente.
+5. Incrementar versão:
+
+```bash
+npm version patch
+```
+
+6. Publicar:
+
+```bash
+npm publish
+```
+
+---
+
+## Objetivo
+
+Esta biblioteca foi criada para centralizar componentes reutilizáveis e facilitar o compartilhamento entre múltiplos projetos e microfrontends.
