@@ -1,22 +1,13 @@
-# README - lib-ui
+# README - lib-utils
 
 ## Descrição
 
-Biblioteca de componentes React compartilhados.
+Biblioteca de utilitários compartilhados para aplicações frontend.
 
-Componentes disponíveis:
+Atualmente contém funções para:
 
-* Button
-* Input
-* Modal
-
----
-
-## Tecnologias
-
-* React
-* TypeScript
-* Vite
+* Formatação de CPF
+* Formatação de telefone
 
 ---
 
@@ -25,8 +16,8 @@ Componentes disponíveis:
 ### 1. Clonar o repositório
 
 ```bash
-git clone https://github.com/guifrancini/lib-ui.git
-cd lib-ui
+git clone https://github.com/guifrancini/lib-utils.git
+cd lib-utils
 ```
 
 ### 2. Instalar dependências
@@ -35,66 +26,53 @@ cd lib-ui
 npm install
 ```
 
-### 3. Gerar build
+### 3. Gerar a build da biblioteca
 
 ```bash
 npm run build
 ```
 
-Será criada a pasta:
+Após a build será criada a pasta:
 
 ```text
 dist/
 ```
 
-com os componentes compilados.
+contendo os arquivos JavaScript e TypeScript utilizados pelos consumidores da biblioteca.
 
 ---
 
 ## Gerando pacote local (.tgz)
 
+Para testar a biblioteca sem publicar:
+
 ```bash
 npm pack
 ```
 
-Exemplo:
+Será gerado um arquivo semelhante a:
 
 ```text
-guifrancini-lib-ui-1.0.0.tgz
+guifrancini-lib-utils-1.0.5.tgz
 ```
 
 ---
 
 ## Consumindo localmente
 
-Em outro projeto React:
+Em outro projeto:
 
 ```bash
-npm install ../lib-ui/guifrancini-lib-ui-1.0.0.tgz
+npm install ../lib-utils/guifrancini-lib-utils-1.0.5.tgz
 ```
 
----
+Exemplo:
 
-## Exemplo de Uso
+```ts
+import { formatCpf, formatPhone } from "@guifrancini/lib-utils";
 
-```tsx
-import { Button, Input, Modal } from "@guifrancini/lib-ui";
-
-function App() {
-  return (
-    <>
-      <Button>Salvar</Button>
-
-      <Input placeholder="Digite seu nome" />
-
-      <Modal open={true}>
-        Conteúdo do Modal
-      </Modal>
-    </>
-  );
-}
-
-export default App;
+console.log(formatCpf("12345678901"));
+console.log(formatPhone("11999999999"));
 ```
 
 ---
@@ -102,6 +80,8 @@ export default App;
 ## Publicação no GitHub Packages
 
 ### Configurar .npmrc
+
+Criar um arquivo `.npmrc`:
 
 ```text
 @guifrancini:registry=https://npm.pkg.github.com
@@ -119,10 +99,10 @@ npm publish
 
 ## Instalação via GitHub Packages
 
-Após publicar:
+Após a publicação:
 
 ```bash
-npm install @guifrancini/lib-ui
+npm install @guifrancini/lib-utils
 ```
 
 ---
@@ -131,40 +111,20 @@ npm install @guifrancini/lib-ui
 
 ```text
 src/
-├── components/
-│   ├── button.tsx
-│   ├── input.tsx
-│   └── modal.tsx
+├── formatCpf.ts
+├── formatPhone.ts
 └── index.ts
 ```
 
 ---
 
-## Fluxo de Desenvolvimento
+## Exemplo de Uso
 
-1. Criar ou alterar componentes.
-2. Exportar os componentes no `index.ts`.
-3. Executar:
+```ts
+import { formatCpf } from "@guifrancini/lib-utils";
 
-```bash
-npm run build
+const cpf = formatCpf("12345678901");
+
+console.log(cpf);
+// 123.456.789-01
 ```
-
-4. Testar localmente.
-5. Incrementar versão:
-
-```bash
-npm version patch
-```
-
-6. Publicar:
-
-```bash
-npm publish
-```
-
----
-
-## Objetivo
-
-Esta biblioteca foi criada para centralizar componentes reutilizáveis e facilitar o compartilhamento entre múltiplos projetos e microfrontends.
